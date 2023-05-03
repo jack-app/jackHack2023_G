@@ -20,14 +20,12 @@ public class LocateBuilding : MonoBehaviour
     // フィールドの上に完全に乗ったかどうか
     bool isOnField = false;
 
-
- 
     void Start()
     {
         transparentPlane = GameObject.Find("TransparentPlane");
         // Planeオブジェクトを作成する
         plane = transparentPlane.GetComponent<CreatePlane>().plane;
-        this.transform.SetParent(GameObject.FindWithTag("Field").transform);
+        transform.SetParent(GameObject.FindWithTag("Field").transform);
     }
 
     // ドラッグアンドドロップ終了時に呼び出される関数
@@ -102,8 +100,9 @@ public class LocateBuilding : MonoBehaviour
 
     // オブジェクトのy座標を考慮した位置を取得
     private Vector3 calcBuildingPosition(Vector3 position) {
+        print(transform.localScale);
         Vector3 newPosition = position;
-        newPosition.y =  this.transform.transform.localScale.y/2;
+        newPosition.y = 0;
         return newPosition;
     }
 

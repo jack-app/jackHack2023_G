@@ -13,6 +13,8 @@ public class FieldScript : MonoBehaviour
 
     // フィールドのゲームオブジェクト
     public GameObject fieldTile;
+    // フィールドの外側のタイル
+    public GameObject outFieldTile1, outFieldTile2, outFieldTile3, outFieldTile4;
 
     void Start() 
     {

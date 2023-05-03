@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragandDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class BuildingDragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {   
     // 画像ごとに建物の番号を割り振る
-    [SerializeField] int buildingNumber;
+    [SerializeField] string buildingPrefabName;
     // ドラッグ中のオブジェクトを格納する変数
     private GameObject building;
     // 親要素のGameObjectを格納する変数
@@ -16,7 +16,7 @@ public class DragandDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
     public void OnBeginDrag(PointerEventData eventData)
     {
         // BuildingプレハブをGameObject型で取得
-        building = Instantiate ((GameObject)Resources.Load("Building"), Vector3.zero, Quaternion.identity) as GameObject;
+        building = Instantiate ((GameObject)Resources.Load(buildingPrefabName), Vector3.zero, Quaternion.identity) as GameObject;
         // 親要素のGameObjectを取得
         parentObject = transform.parent.gameObject;
         // パネルをスライドアウト
