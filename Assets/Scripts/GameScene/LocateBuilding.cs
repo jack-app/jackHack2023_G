@@ -27,7 +27,7 @@ public class LocateBuilding : MonoBehaviour
         transparentPlane = GameObject.Find("TransparentPlane");
         // Planeオブジェクトを作成する
         plane = transparentPlane.GetComponent<CreatePlane>().plane;
-        this.transform.SetParent(GameObject.Find("Field").transform);
+        this.transform.SetParent(GameObject.FindWithTag("Field").transform);
     }
 
     // ドラッグアンドドロップ終了時に呼び出される関数
@@ -63,7 +63,12 @@ public class LocateBuilding : MonoBehaviour
         {
             isOnField = true;
         }
-        else if(other.CompareTag("OutFieldTile"))
+        else if(            
+            other.CompareTag("OutFieldTile1") || 
+            other.CompareTag("OutFieldTile2") || 
+            other.CompareTag("OutFieldTile3") || 
+            other.CompareTag("OutFieldTile4")
+        )
         {
             onOutField++;
         }
@@ -82,7 +87,12 @@ public class LocateBuilding : MonoBehaviour
         {
             isOnField = false;
         }
-        else if(other.CompareTag("OutFieldTile"))
+        else if(
+            other.CompareTag("OutFieldTile1") || 
+            other.CompareTag("OutFieldTile2") || 
+            other.CompareTag("OutFieldTile3") || 
+            other.CompareTag("OutFieldTile4")
+        )
         {
             onOutField--;
         }
