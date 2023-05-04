@@ -53,7 +53,7 @@ public class BackBuildings : MonoBehaviour
         float x = transform.position.x;
         if (_front) x = x - 1.5f;
         else x = x - 0.7f;
-        transform.position = new Vector3(x, -200f, 0f);
+        transform.position = new Vector3(x, -150f, 0f);
         return x + width;
     }
 
