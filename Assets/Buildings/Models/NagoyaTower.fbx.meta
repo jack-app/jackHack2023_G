@@ -1,0 +1,196 @@
+fileFormatVersion: 2
+guid: 472fb0a18a2923b4580cf31c35561eb7
+ModelImporter:
+  serializedVersion: 21300
+  internalIDToNameTable:
+  - first:
+      74: -381468665835800882
+    second: EiffelTower|Direct01.Target|Take 001|BaseLayer
+  - first:
+      74: -4489146145614014145
+    second: EiffelTower|Direct01.Target|Take 001|BaseLayer.001
+  - first:
+      74: -4501795788069372148
+    second: EiffelTower|Direct01.Target|Take 001|BaseLayer.002
+  - first:
+      74: 1970108300595728164
+    second: EiffelTower|Direct01|Take 001|BaseLayer
+  - first:
+      74: -2941678654017193114
+    second: EiffelTower|Direct01|Take 001|BaseLayer.001
+  - first:
+      74: -8383007230940379760
+    second: EiffelTower|Direct01|Take 001|BaseLayer.002
+  - first:
+      74: -1370839184944131163
+    second: EiffelTower|EiffelTower|Take 001|BaseLayer
+  - first:
+      74: -4956681497475862750
+    second: EiffelTower|EiffelTower|Take 001|BaseLayer.001
+  - first:
+      74: 3260484218675329430
+    second: EiffelTower|EiffelTower|Take 001|BaseLayer.002
+  - first:
+      74: -4163702953503707526
+    second: EiffelTower|grnd|Take 001|BaseLayer
+  - first:
+      74: 66457668110418879
+    second: EiffelTower|grnd|Take 001|BaseLayer.001
+  - first:
+      74: -5832527222781632753
+    second: EiffelTower|grnd|Take 001|BaseLayer.002
+  - first:
+      74: 822995693309795453
+    second: EiffelTower|VRayLight02|Take 001|BaseLayer
+  - first:
+      74: 775355438154022559
+    second: EiffelTower|VRayLight02|Take 001|BaseLayer.001
+  - first:
+      74: -6192052444510255188
+    second: EiffelTower|VRayLight02|Take 001|BaseLayer.002
+  - first:
+      74: 3519910678239993293
+    second: EiffelTower|VRayPhysicalCamera01|Take 001|BaseLayer
+  - first:
+      74: 735787409689325859
+    second: EiffelTower|VRayPhysicalCamera01|Take 001|BaseLayer.001
+  - first:
+      74: 3956444092073237544
+    second: EiffelTower|VRayPhysicalCamera01|Take 001|BaseLayer.002
+  - first:
+      74: 3989342006370341365
+    second: EiffelTower|VRayPhysicalCamera02.Target|Take 001|BaseLayer
+  - first:
+      74: -8309426313595264704
+    second: EiffelTower|VRayPhysicalCamera02.Target|Take 001|BaseLayer.001
+  - first:
+      74: -2393143574591849587
+    second: EiffelTower|VRayPhysicalCamera02.Target|Take 001|BaseLayer.002
+  - first:
+      74: -1097743658586790455
+    second: EiffelTower|VRayPhysicalCamera02|Take 001|BaseLayer
+  - first:
+      74: -3847350242243633389
+    second: EiffelTower|VRayPhysicalCamera02|Take 001|BaseLayer.001
+  - first:
+      74: 5842078405462247300
+    second: EiffelTower|VRayPhysicalCamera02|Take 001|BaseLayer.002
+  - first:
+      74: -524365223321675731
+    second: EiffelTower|VRayPhysicalCamera03|Take 001|BaseLayer
+  - first:
+      74: 8129374904157037819
+    second: EiffelTower|VRayPhysicalCamera03|Take 001|BaseLayer.001
+  - first:
+      74: 4265758767532550670
+    second: EiffelTower|VRayPhysicalCamera03|Take 001|BaseLayer.002
+  - first:
+      74: -9140641559946885831
+    second: EiffelTower|VRayPhysicalCamera04|Take 001|BaseLayer
+  - first:
+      74: 8736213215028560854
+    second: EiffelTower|VRayPhysicalCamera04|Take 001|BaseLayer.001
+  - first:
+      74: 2663344159229342431
+    second: EiffelTower|VRayPhysicalCamera04|Take 001|BaseLayer.002
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 1
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
