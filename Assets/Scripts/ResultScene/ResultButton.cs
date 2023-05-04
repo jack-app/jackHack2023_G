@@ -8,6 +8,7 @@ using System.ComponentModel;
 
 public class ResultButton : MonoBehaviour
 {
+    public Camera camera;
     public Canvas resultCanvas;
     public Canvas photoCanvas;
     public Canvas backCanvas;
@@ -81,6 +82,7 @@ public class ResultButton : MonoBehaviour
         backCanvas.gameObject.SetActive(false);
         backViewCanvas.gameObject.SetActive(false);
         photoCanvas.gameObject.SetActive(true);
+        camera.depth = -2;
     }
     public void finishCapture()
     {
@@ -90,5 +92,6 @@ public class ResultButton : MonoBehaviour
         resultCanvas.gameObject.SetActive(true);
         backCanvas.gameObject.SetActive(true);
         backViewCanvas.gameObject.SetActive(true);
+        camera.depth = 0;
     }
 }
