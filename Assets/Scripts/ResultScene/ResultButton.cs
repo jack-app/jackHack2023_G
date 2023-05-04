@@ -4,18 +4,24 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.ComponentModel;
 
 public class ResultButton : MonoBehaviour
 {
-    private int score;
+    public Canvas resultCanvas;
+    public Canvas photoCanvas;
+    public Canvas backCanvas;
+    public Canvas backViewCanvas;
     public TextMeshProUGUI text;
     public GameObject sceneChangePanel;
+    public GameType gameType = GameType.easy;
+    public BackGround backGround;
+    private int score;
     private Image fadeAlpha;
     private float alpha;
     private bool fadeinFlag = true;
     private bool fadeoutFlag = false;
     private string nextScene;
-    public GameType gameType = GameType.easy;
 
 
     void Start()
@@ -69,6 +75,20 @@ public class ResultButton : MonoBehaviour
     }
     public void PushCapture()
     {
-
+        backGround.moveable = false;
+        backGround.parent.gameObject.SetActive(false);
+        resultCanvas.gameObject.SetActive(false);
+        backCanvas.gameObject.SetActive(false);
+        backViewCanvas.gameObject.SetActive(false);
+        photoCanvas.gameObject.SetActive(true);
+    }
+    public void finishCapture()
+    {
+        backGround.moveable = true;
+        backGround.parent.gameObject.SetActive(true);
+        photoCanvas.gameObject.SetActive(false);
+        resultCanvas.gameObject.SetActive(true);
+        backCanvas.gameObject.SetActive(true);
+        backViewCanvas.gameObject.SetActive(true);
     }
 }

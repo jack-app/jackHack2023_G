@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class BackGround : MonoBehaviour
 {
-    [SerializeField] private BackBuildings backBuildingPrefab = null!;
+    public GameObject parent = null!;
+    public BackBuildings backBuildingPrefab = null!;
+    public bool moveable = true;
     private List<BackBuildings> backBuildings = new List<BackBuildings>();
     private List<BackBuildings> frontBuildings = new List<BackBuildings>();
     private float frontMargin = 1100;
@@ -31,6 +33,7 @@ public class BackGround : MonoBehaviour
                 BackBuildings backBuilding = Instantiate(backBuildingPrefab);
                 float newBuilding = backBuilding.Create(true);
                 backBuilding.gameObject.transform.position = new Vector3(550f - frontMargin, -210, 0);
+                backBuilding.gameObject.transform.SetParent(parent.transform);
                 frontMargin -= newBuilding;
                 backBuildings.Add(backBuilding);
             }
@@ -46,6 +49,7 @@ public class BackGround : MonoBehaviour
                 BackBuildings backBuilding = Instantiate(backBuildingPrefab);
                 float newBuilding = backBuilding.Create(false);
                 backBuilding.gameObject.transform.position = new Vector3(550f - backMargin, -210, 0);
+                backBuilding.gameObject.transform.SetParent(parent.transform);
                 backMargin -= newBuilding;
                 frontBuildings.Add(backBuilding);
             }
@@ -55,6 +59,7 @@ public class BackGround : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!moveable) return;
         float mostFrontRight = -550;
         float mostBackRight = -550;
         List<int> remove = new List<int>();
@@ -95,6 +100,7 @@ public class BackGround : MonoBehaviour
             BackBuildings backBuilding = Instantiate(backBuildingPrefab);
             float newBuilding = backBuilding.Create(true);
             backBuilding.gameObject.transform.position = new Vector3(550f, -210, 0);
+            backBuilding.gameObject.transform.SetParent(parent.transform);
             frontMargin = frontMargin - newBuilding + 10;
             frontBuildings.Add(backBuilding);
         }
@@ -103,6 +109,7 @@ public class BackGround : MonoBehaviour
             BackBuildings backBuilding = Instantiate(backBuildingPrefab);
             float newBuilding = backBuilding.Create(false);
             backBuilding.gameObject.transform.position = new Vector3(550f, -210, 0);
+            backBuilding.gameObject.transform.SetParent(parent.transform);
             backMargin -= newBuilding;
             backBuildings.Add(backBuilding);
         }
