@@ -17,11 +17,13 @@ public class StartButton : MonoBehaviour
     private bool fadeinFlag = true;
     private bool fadeoutFlag = false;
     public GameType gameType = GameType.easy;
+    private AudioSource clickSound;
 
     void Start()
     {
         fadeAlpha = sceneChangePanel.GetComponent<Image>();
         alpha = fadeAlpha.color.a;
+        clickSound = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -57,11 +59,13 @@ public class StartButton : MonoBehaviour
 
     public void PushStart()
     {
+        clickSound.PlayOneShot(clickSound.clip);
         fadeoutFlag = true;
     }
 
     public void PushSelect()
     {
+        clickSound.PlayOneShot(clickSound.clip);
         settingPanel.gameObject.SetActive(true);
     }
 
