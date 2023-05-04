@@ -22,9 +22,9 @@ public class BackGround : MonoBehaviour
     {
         while(frontMargin > 0)
         {
-            if (r.Next(1,100) > 5)
+            if (r.Next(1,100) > 3)
             {
-                frontMargin -= 5;
+                frontMargin -= 2;
             }
             else
             {
@@ -90,13 +90,13 @@ public class BackGround : MonoBehaviour
         }
 
         //create buildings
-        if(mostFrontRight < 550 && r.Next(1,100) < 1.3)
+        if(mostFrontRight < 550 && r.Next(1,100) < 1.55)
         {
             BackBuildings backBuilding = Instantiate(backBuildingPrefab);
             float newBuilding = backBuilding.Create(true);
             backBuilding.gameObject.transform.position = new Vector3(550f, -210, 0);
-            frontMargin -= newBuilding;
-            backBuildings.Add(backBuilding);
+            frontMargin = frontMargin - newBuilding + 10;
+            frontBuildings.Add(backBuilding);
         }
         if(mostBackRight < 550 && r.Next(1,100) < 1.03)
         {
@@ -104,7 +104,7 @@ public class BackGround : MonoBehaviour
             float newBuilding = backBuilding.Create(false);
             backBuilding.gameObject.transform.position = new Vector3(550f, -210, 0);
             backMargin -= newBuilding;
-            frontBuildings.Add(backBuilding);
+            backBuildings.Add(backBuilding);
         }
     }
 }
