@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6900627580194045276}
   - component: {fileID: 2072197635283108836}
   m_Layer: 0
-  m_Name: smallBuilding4
+  m_Name: SmallBuilding4
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
