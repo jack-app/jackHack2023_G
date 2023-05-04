@@ -12,14 +12,21 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI centerText;
     // 収益を表示するテキスト
     [SerializeField] TextMeshProUGUI revenueText;
-    // 電気代を表示するテキスト
+    // 電気代の進捗を表示するテキスト
     [SerializeField] TextMeshProUGUI electricityBillText;
+    // 電気代進捗をを表示するプログレスバー
+    [SerializeField] Slider electricityBillSlider;
     // 時間を表示するテキスト
     [SerializeField] TextMeshProUGUI timerText;
-    // 増設に必要な建物数を表示するテキスト
+
+    // 増設に必要な建物数の進捗を表示するテキスト
     [SerializeField] TextMeshProUGUI ExtensionCountText;
-    // 増設にかかるお金を表示するテキスト
+    // 増設に必要な建物数の進捗を表示するプログレスバー
+    [SerializeField] Slider ExtensionCountSlider;
+    // 増設にかかるお金の進捗を表示するテキスト
     [SerializeField] TextMeshProUGUI ExtensionCostText;
+    // 増設にかかるお金の進捗を表示するプログレスバー
+    [SerializeField] Slider ExtensionCostSlider;
     // カウントダウン中に操作を受け付けないようにするためのパネル
     [SerializeField] GameObject panel;
 
@@ -67,11 +74,8 @@ public class GameManager : MonoBehaviour
     // 一番最初に呼ばれる関数
     void InitGame()
     {
-        revenueText.text = "revenue: " + totalRevenue.ToString() + "doll";
-        electricityBillText.text = "electricity: " + totalElectricityBill.ToString() + "doll";
-        timerText.text = "time: " + timer.ToString() + "sec.";
-        ExtensionCountText.text = "building: " + Mathf.Max(0, extensionCountList[extensionCountIndex]-buildingCount).ToString();
-        ExtensionCostText.text = "cost: " + extensionCostList[extensionCostIndex].ToString() + "doll";
+        // 表示を更新
+        UpdateValue();
         // ゲームスタートのコルーチンを呼び出す
         StartCoroutine(GameStart());
     }
@@ -106,7 +110,7 @@ public class GameManager : MonoBehaviour
             timer++;
             totalRevenue += revenuePerSecond;
             // 表示を更新
-            UpdateText();
+            UpdateValue();
         }
         StartCoroutine(GameClear());
     }
@@ -150,14 +154,14 @@ public class GameManager : MonoBehaviour
         totalElectricityBill += electricityBill;
         buildingCount++;
         // 表示を更新
-        UpdateText();
+        UpdateValue();
 
     }
 
     // 増設できるかどうかの判定
     public bool CanExtension()
     {
-        return buildingCount >= extensionCountList[extensionCountIndex];
+        return buildingCount >= extensionCountList[extensionCountIndex] && totalRevenue >= extensionCostList[extensionCostIndex];
     }
     // 増設
     public void Extension()
@@ -169,16 +173,24 @@ public class GameManager : MonoBehaviour
         extensionCostIndex++;
 
         // 表示を更新
-        UpdateText();
+        UpdateValue();
     }
 
     // 表示を更新する関数
-    public void UpdateText()
+    public void UpdateValue()
     {
-        revenueText.text = "revenue: " + totalRevenue.ToString() + "doll";
-        electricityBillText.text = "electricity: " + totalElectricityBill.ToString() + "doll";
-        timerText.text = "time: " + timer.ToString() + "sec.";
-        ExtensionCountText.text = "building: " + Mathf.Max(0, extensionCountList[extensionCountIndex]-buildingCount).ToString();
-        ExtensionCostText.text = "cost: " + extensionCostList[extensionCostIndex].ToString() + "doll";
+        // 収益
+        revenueText.text =  totalRevenue.ToString() + " doll";
+        // 電気代
+        electricityBillText.text = Mathf.Min(100, (Mathf.Floor(100*totalElectricityBill / clearElectricityBill))).ToString() + " %";
+        electricityBillSlider.value = Mathf.Min(1.0f, totalElectricityBill / clearElectricityBill);
+        // タイマー
+        timerText.text =   timer.ToString() + " sec.";
+        // 増設に必要な建物数
+        ExtensionCountText.text = Mathf.Min(100, (Mathf.Floor(100*(float)buildingCount/ extensionCountList[extensionCountIndex]))).ToString() + " %";
+        ExtensionCountSlider.value = Mathf.Min(1.0f, (float)buildingCount / extensionCountList[extensionCountIndex]);
+        // 増設に必要なお金
+        ExtensionCostText.text = Mathf.Min(100, (Mathf.Floor(100*totalRevenue / extensionCostList[extensionCostIndex]))).ToString() + " %";
+        ExtensionCostSlider.value = Mathf.Min(1.0f, totalRevenue / extensionCostList[extensionCostIndex]);
     }
 }
