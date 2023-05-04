@@ -17,11 +17,12 @@ public class ExtensionField : MonoBehaviour, IPointerClickHandler
     // フィールドの外側のタイル
     public GameObject outFieldTile1, outFieldTile2, outFieldTile3, outFieldTile4;
 
+
     // クリックされたときの処理
     public void OnPointerClick(PointerEventData eventData)
     {
         // フィールドが最大の大きさだったらリターン
-        if (fieldSize == fieldMaxSize)
+        if (fieldSize == fieldMaxSize || !GameManager.Instance.CanExtension())
         {
             return;
         }
@@ -48,5 +49,7 @@ public class ExtensionField : MonoBehaviour, IPointerClickHandler
         
         // カメラの位置を変更
         Camera.main.gameObject.transform.position += new Vector3(5.0f,5.0f,5.0f);
+
+        GameManager.Instance.Extension();
     }
 }

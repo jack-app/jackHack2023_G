@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuildingDragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class BuildingButtonScript : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {   
-    // 画像ごとに建物の番号を割り振る
-    [SerializeField] string buildingPrefabName;
+    // BuildingプレハブをGameObject型で取得
+    [SerializeField] GameObject buildingPrefab;
     // ドラッグ中のオブジェクトを格納する変数
     private GameObject building;
     // 親要素のGameObjectを格納する変数
@@ -16,7 +16,7 @@ public class BuildingDragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandle
     public void OnBeginDrag(PointerEventData eventData)
     {
         // BuildingプレハブをGameObject型で取得
-        building = Instantiate ((GameObject)Resources.Load(buildingPrefabName), Vector3.zero, Quaternion.identity) as GameObject;
+        building = Instantiate (buildingPrefab, Vector3.zero, Quaternion.identity) as GameObject;
         // 親要素のGameObjectを取得
         parentObject = transform.parent.gameObject;
         // パネルをスライドアウト
@@ -26,15 +26,16 @@ public class BuildingDragAndDrop : MonoBehaviour, IDragHandler, IBeginDragHandle
     // ドラッグ中に呼び出されるメソッド
     public void OnDrag(PointerEventData eventData)
     {
-        building.GetComponent<LocateBuilding>().SetPosition();
+        building.GetComponent<BuildingScript>().SetPosition();
     }
 
     // ドラッグを終了したときに呼び出されるメソッド
     public void OnEndDrag(PointerEventData eventData)
     {
-    // パネルをスライドイン
+        // パネルをスライドイン
         parentObject.GetComponent<PanelSlider>().SlideIn();
-        building.GetComponent<LocateBuilding>().EndDragAndDrop();
+        // 設置できるかを判定
+        building.GetComponent<BuildingScript>().ConstructBuilding();
     }
 
     // オブジェクトのy座標を考慮した位置を取得
