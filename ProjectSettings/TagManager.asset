@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Building
+  - FieldTile
+  - OutFieldTile
+  - Field
+  - OutFieldTile1
+  - OutFieldTile2
+  - OutFieldTile3
+  - OutFieldTile4
   layers:
   - Default
   - TransparentFX
