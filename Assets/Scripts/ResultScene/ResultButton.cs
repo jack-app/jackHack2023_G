@@ -23,6 +23,8 @@ public class ResultButton : MonoBehaviour
     private bool fadeinFlag = true;
     private bool fadeoutFlag = false;
     private string nextScene;
+    private AudioSource clickSound;
+
 
 
     void Start()
@@ -31,6 +33,7 @@ public class ResultButton : MonoBehaviour
         alpha = fadeAlpha.color.a;
         score = 0;
         text.text = score.ToString();
+        clickSound = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -66,11 +69,13 @@ public class ResultButton : MonoBehaviour
 
     public void PushRetry()
     {
+        clickSound.PlayOneShot(clickSound.clip);
         fadeoutFlag = true;
         nextScene = "GameScene";
     }
     public void PushReturn()
     {
+        clickSound.PlayOneShot(clickSound.clip);
         fadeoutFlag = true;
         nextScene = "StartScene";
     }

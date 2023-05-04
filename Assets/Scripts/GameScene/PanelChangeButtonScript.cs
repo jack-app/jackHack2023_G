@@ -10,10 +10,20 @@ public class PanelChangeButtonScript : MonoBehaviour, IPointerClickHandler
     [SerializeField] TextMeshProUGUI panelNameText;
     // パネルをいくつ進めるか
     [SerializeField] int panelNum;
+    // 音源
+    private AudioSource clickSound;
+
+    void Start() 
+    {
+        clickSound = GetComponent<AudioSource>();
+        
+    }
 
     // クリックされたときの処理
     public void OnPointerClick(PointerEventData eventData)
     {
+        // 音を鳴らす
+        clickSound.PlayOneShot(clickSound.clip);
         // パネルを変更
         transform.parent.GetComponent<PanelChangeScript>().ChangePanel(panelNum);
     }
