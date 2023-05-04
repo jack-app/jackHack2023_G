@@ -210,12 +210,12 @@ public class GameManager : MonoBehaviour
     public void UpdateValue()
     {
         // 収益
-        revenueText.text =  totalRevenue.ToString() + " doll";
+        revenueText.text =  "$ "+totalRevenue.ToString();
         // 電気代
         electricityBillText.text = Mathf.Min(100, (Mathf.Floor(100*totalElectricityBill / clearElectricityBill))).ToString() + " %";
         electricityBillSlider.value = Mathf.Min(1.0f, totalElectricityBill / clearElectricityBill);
         // タイマー
-        timerText.text =   timer.ToString() + " sec.";
+        timerText.text =   timer.ToString() + " 秒";
         // 増設に必要な建物数
         ExtensionCountText.text = Mathf.Min(100, (Mathf.Floor(100*(float)buildingCount/ extensionCountList[extensionCountIndex]))).ToString() + " %";
         ExtensionCountSlider.value = Mathf.Min(1.0f, (float)buildingCount / extensionCountList[extensionCountIndex]);
