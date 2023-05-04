@@ -19,7 +19,8 @@ public class BuildingButtonScript : MonoBehaviour, IDragHandler, IBeginDragHandl
     // コストを表示するテキスト
     [SerializeField] TextMeshProUGUI costText;
 
-    void Start()
+    // Awakeで初期化しないとダメだった
+    void Awake()
     {
         // 対応する建物のコストを取得
         buildingCost = buildingPrefab.GetComponent<BuildingScript>().cost;
@@ -73,7 +74,6 @@ public class BuildingButtonScript : MonoBehaviour, IDragHandler, IBeginDragHandl
         {
             // ボタンを有効化
             overlapPanel.SetActive(false);
-
         }
     }
 }

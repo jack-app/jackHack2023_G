@@ -19,9 +19,9 @@ public class PanelChangeScript : MonoBehaviour, IPointerClickHandler
     // クリックされたときの処理
     public void OnPointerClick(PointerEventData eventData)
     {
-        // パネルを変更
-        panels[panelNum].transform.SetAsLastSibling();
         // パネルの番号を変更
         panelNum = (panelNum + 1) % panels.Length;
+        // パネルを変更
+        panels[panelNum].transform.SetAsLastSibling();
     }
 }

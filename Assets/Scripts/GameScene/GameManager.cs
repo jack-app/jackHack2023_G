@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro; //TextMeshProを扱う際に必要
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,6 +30,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] Slider ExtensionCostSlider;
     // カウントダウン中に操作を受け付けないようにするためのパネル
     [SerializeField] GameObject panel;
+
+    // シーン遷移用のパネル
+    [SerializeField] GameObject sceneChangePanel;
+    private Image fadeAlpha;
 
     
 
@@ -71,16 +76,17 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        fadeAlpha = sceneChangePanel.GetComponent<Image>();
+        fadeAlpha.color = new Color(0, 0, 0, 0);
+        // ボタンの一覧を取得
+        buildingButtons = GameObject.FindGameObjectsWithTag("BuildingButton");
+
         InitGame();
     }
 
     // 一番最初に呼ばれる関数
     void InitGame()
     {
-        // ボタンの一覧を取得
-        buildingButtons = GameObject.FindGameObjectsWithTag("BuildingButton");
-        // 表示を更新
-        UpdateValue();
         // ゲームスタートのコルーチンを呼び出す
         StartCoroutine(GameStart());
     }
@@ -89,6 +95,8 @@ public class GameManager : MonoBehaviour
     // ゲームスタートのカウントダウンとかのコルーチン
     public IEnumerator GameStart()
     {
+        // 表示を更新
+        UpdateValue();
         centerText.enabled = true;
         centerText.text = "3";
         yield return new WaitForSeconds(1);
@@ -138,10 +146,27 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         centerText.text = "";
         centerText.enabled = false;
+        // シーン遷移のコルーチンを呼び出す
+        StartCoroutine(SceneChange());
+    }
 
-        ///
-        // リザルト表示
-        ///
+    // リザルトに遷移するコルーチン
+    public IEnumerator SceneChange()
+    {
+
+        float alpha = 0.0f;
+        while(alpha < 1.0f)
+        {
+            fadeAlpha.color = new Color(0, 0, 0, alpha);
+            alpha += 0.02f;
+            yield return new WaitForSeconds(1/60f);
+        }
+
+        // リザルトシーンを読み込む
+        SceneManager.LoadScene("ResultScene", LoadSceneMode.Additive);
+        yield return new WaitForSeconds(0.01f);
+        // canvasを無効にする
+        GameObject.Find("Canvas").SetActive(false);
     }
 
     // 費用的に建設が可能かどうかの判定
