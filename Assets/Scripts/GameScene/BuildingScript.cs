@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityFx.Outline;
 
-public class LocateBuilding : MonoBehaviour
+public class BuildingScript : MonoBehaviour
 {   
     // 透明なPlaneオブジェクト
     private GameObject transparentPlane;
     // 透明なPlaneオブジェクトを作成するスクリプト
     private CreatePlane createPlane;
+
+    // 建物の建設費用
+    [SerializeField] float cost;
+    // 建物の収益
+    [SerializeField] float revenue;
+    // 建物の電気代
+    [SerializeField] float electricityBill;
+
     // Planeオブジェクトを格納する変数
     Plane plane;
     // オブジェクトを掴んでいるかどうかを判定する変数
@@ -29,15 +37,21 @@ public class LocateBuilding : MonoBehaviour
     }
 
     // ドラッグアンドドロップ終了時に呼び出される関数
-    public void EndDragAndDrop()
+    public void ConstructBuilding()
     {
         // オブジェクトを離す
         isGrabbing = false;
         // アウトラインを消す
         GetComponent<OutlineBehaviour>().enabled = false;
         //　オブジェクトが重なっているかとフィールド上に存在するかを判定
-        if(overlapCount > 0 || onOutField > 0 || !isOnField){
+        if(overlapCount > 0 || onOutField > 0 || !isOnField || !GameManager.Instance.CanBuild(cost)){
+            // 建設できないので削除
             gameObject.SetActive(false);
+        }
+        else
+        {
+            // 建設できるので建設費を支払う
+            GameManager.Instance.Build(cost, revenue, electricityBill);
         }
     }
     
