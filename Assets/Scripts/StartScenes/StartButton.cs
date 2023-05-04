@@ -33,7 +33,7 @@ public class StartButton : MonoBehaviour
     {
         if(fadeinFlag)
         {
-            alpha -= 0.01f;
+            alpha -= 0.02f;
             if (alpha <= 0)
             {
                 fadeinFlag = false;
@@ -44,7 +44,7 @@ public class StartButton : MonoBehaviour
         else if (fadeoutFlag)
         {
 
-            alpha += 0.01f;
+            alpha += 0.02f;
             if (alpha >= 1)
             {
                 SceneManager.LoadScene("GameScene");

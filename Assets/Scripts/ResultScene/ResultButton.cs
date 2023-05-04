@@ -23,7 +23,7 @@ public class ResultButton : MonoBehaviour
         fadeAlpha = sceneChangePanel.GetComponent<Image>();
         alpha = fadeAlpha.color.a;
         score = 0;
-        text.text = "Your score is " + score;
+        text.text = score.ToString();
     }
 
     void Update()
@@ -35,7 +35,7 @@ public class ResultButton : MonoBehaviour
     {
         if (fadeinFlag)
         {
-            alpha -= 0.01f;
+            alpha -= 0.02f;
             if (alpha <= 0)
             {
                 fadeinFlag = false;
@@ -46,7 +46,7 @@ public class ResultButton : MonoBehaviour
         else if (fadeoutFlag)
         {
 
-            alpha += 0.01f;
+            alpha += 0.02f;
             if (alpha >= 1)
             {
                 SceneManager.LoadScene(nextScene);
