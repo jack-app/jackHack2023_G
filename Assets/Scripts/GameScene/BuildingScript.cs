@@ -69,12 +69,10 @@ public class BuildingScript : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Building"))
         {
-            print("重なった");
             overlapCount++;
         }
         else if(other.CompareTag("FieldTile"))
         {
-            print("フィールド上に乗った");
             isOnField = true;
         }
         else if(            
@@ -84,7 +82,6 @@ public class BuildingScript : MonoBehaviour
             other.CompareTag("OutFieldTile4")
         )
         {
-            print("フィールド外に乗った");
             onOutField++;
         }
         // アウトラインの色を変える
