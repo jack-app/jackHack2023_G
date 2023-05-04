@@ -98,6 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6999041023434782392}
   - component: {fileID: 6999041023434782390}
+  - component: {fileID: -3775247475527051142}
   m_Layer: 5
   m_Name: BackBuilding
   m_TagString: Untagged
@@ -139,3 +140,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 6999041022386669709}
+  frontMate: {fileID: 2100000, guid: 8bdaa381c3a94e6448d98b819459f967, type: 2}
+  backMate: {fileID: 2100000, guid: 505607f1c886ffd47a92c1b3278cdfab, type: 2}
+  meshRenderer: {fileID: 6999041022386669710}
+--- !u!222 &-3775247475527051142
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999041023434782393}
+  m_CullTransparentMesh: 1

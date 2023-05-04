@@ -1,44 +1,60 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using UnityEngine;
 
 public class BackBuildings : MonoBehaviour
 {
     public MeshFilter meshFilter = null!;
+    public Material frontMate = null!;
+    public Material backMate = null!;
+    public MeshRenderer meshRenderer = null!;
     private System.Random r = new System.Random();
-    private bool front; //Žè‘O‚È‚çtrue,‰œ‚È‚çfalse
+    private bool _front; //Žè‘O‚È‚çtrue,‰œ‚È‚çfalse
     private int position;
     private float height;
     private float width;
     private Vector3[] meshArr = new Vector3[4];
     private int[] triangle = new int[6] { 0, 1, 2, 2, 1, 3 };
 
-    public float Create()
+    public float Create(bool front)
     {
-        height = r.Next(100, 400);
-        width = r.Next(50, 300);
-        meshArr[0] = new Vector3(0, 0, 0);
-        meshArr[1] = new Vector3(0, height, 0);
-        meshArr[2] = new Vector3(width, 0, 0);
-        meshArr[3] = new Vector3(width, height, 0);
-        Debug.Log(meshArr[0] + " , " + meshArr[1] + " , " + meshArr[2] + " , " + meshArr[3] + " ,   " + triangle[0] + " , " + triangle[1] + " , " + triangle[2] + " , " + triangle[3] + " , " + triangle[4] + " , " + triangle[5]);
+        _front = front;
+        if (_front)
+        {
+            height = r.Next(80, 200);
+            width = r.Next(40, 100);
+            meshRenderer.material = frontMate;
+            meshArr[0] = new Vector3(0, 0, 500);
+            meshArr[1] = new Vector3(0, height, 500);
+            meshArr[2] = new Vector3(width, 0, 500);
+            meshArr[3] = new Vector3(width, height, 500);
+        }
+        else
+        {
+            height = r.Next(100, 300);
+            width = r.Next(40, 100);
+            meshRenderer.material = backMate;
+            meshArr[0] = new Vector3(0, 0, 502);
+            meshArr[1] = new Vector3(0, height, 502);
+            meshArr[2] = new Vector3(width, 0, 502);
+            meshArr[3] = new Vector3(width, height, 502);
+        }
         Mesh mesh = new Mesh();
         mesh.vertices = meshArr;
         mesh.triangles = triangle;
+        meshFilter.mesh = mesh;
 
         return width;
     }
 
-    public bool Move()
+    public float Move()
     {
         float x = transform.position.x;
-        if (front) x = x - 2;
-        else x = x - 1;
-        transform.position = new Vector3(x, -100f, 0f);
-        if (x + width < -500) return false;
-        else return true;
+        if (_front) x = x - 1.5f;
+        else x = x - 0.7f;
+        transform.position = new Vector3(x, -200f, 0f);
+        return x + width;
     }
 
     public void Remove()
