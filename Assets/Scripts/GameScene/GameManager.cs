@@ -58,6 +58,9 @@ public class GameManager : MonoBehaviour
     // クリアに必要な電気代
     [SerializeField] float clearElectricityBill = 1000000;
 
+    // 建設用のボタンの一覧
+    GameObject[] buildingButtons;
+
 
 
 
@@ -74,6 +77,8 @@ public class GameManager : MonoBehaviour
     // 一番最初に呼ばれる関数
     void InitGame()
     {
+        // ボタンの一覧を取得
+        buildingButtons = GameObject.FindGameObjectsWithTag("BuildingButton");
         // 表示を更新
         UpdateValue();
         // ゲームスタートのコルーチンを呼び出す
@@ -192,5 +197,11 @@ public class GameManager : MonoBehaviour
         // 増設に必要なお金
         ExtensionCostText.text = Mathf.Min(100, (Mathf.Floor(100*totalRevenue / extensionCostList[extensionCostIndex]))).ToString() + " %";
         ExtensionCostSlider.value = Mathf.Min(1.0f, totalRevenue / extensionCostList[extensionCostIndex]);
+
+        // 建設用のボタンの表示を更新
+        foreach(GameObject button in buildingButtons)
+        {
+            button.GetComponent<BuildingButtonScript>().UpdateBuildingButton(totalRevenue);
+        }
     }
 }

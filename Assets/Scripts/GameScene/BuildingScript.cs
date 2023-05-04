@@ -11,11 +11,11 @@ public class BuildingScript : MonoBehaviour
     private CreatePlane createPlane;
 
     // 建物の建設費用
-    [SerializeField] float cost;
+    public float cost;
     // 建物の収益
-    [SerializeField] float revenue;
+    public float revenue;
     // 建物の電気代
-    [SerializeField] float electricityBill;
+    public float electricityBill;
 
     // Planeオブジェクトを格納する変数
     Plane plane;
@@ -69,10 +69,12 @@ public class BuildingScript : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Building"))
         {
+            print("重なった");
             overlapCount++;
         }
         else if(other.CompareTag("FieldTile"))
         {
+            print("フィールド上に乗った");
             isOnField = true;
         }
         else if(            
@@ -82,6 +84,7 @@ public class BuildingScript : MonoBehaviour
             other.CompareTag("OutFieldTile4")
         )
         {
+            print("フィールド外に乗った");
             onOutField++;
         }
         // アウトラインの色を変える
@@ -93,7 +96,7 @@ public class BuildingScript : MonoBehaviour
     {
         if(other.CompareTag("Building")){
             overlapCount--;
-            print(overlapCount);
+            // print(overlapCount);
         }
         else if(other.CompareTag("FieldTile"))
         {
@@ -114,9 +117,9 @@ public class BuildingScript : MonoBehaviour
 
     // オブジェクトのy座標を考慮した位置を取得
     private Vector3 calcBuildingPosition(Vector3 position) {
-        print(transform.localScale);
+        // print(transform.localScale);
         Vector3 newPosition = position;
-        newPosition.y = 0;
+        newPosition.y = -0.1f;
         return newPosition;
     }
 

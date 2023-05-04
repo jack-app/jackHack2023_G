@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class BuildingButtonScript : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {   
@@ -9,18 +10,32 @@ public class BuildingButtonScript : MonoBehaviour, IDragHandler, IBeginDragHandl
     [SerializeField] GameObject buildingPrefab;
     // ドラッグ中のオブジェクトを格納する変数
     private GameObject building;
-    // 親要素のGameObjectを格納する変数
-    private GameObject parentObject;
+    // パネルのGameObjectを格納する変数
+    private GameObject panelObject;
+    // ボタンを無効化するためのパネルを格納する変数
+    [SerializeField] GameObject overlapPanel;
+    // 対応する建物のコスト
+    float buildingCost;
+    // コストを表示するテキスト
+    [SerializeField] TextMeshProUGUI costText;
+
+    void Start()
+    {
+        // 対応する建物のコストを取得
+        buildingCost = buildingPrefab.GetComponent<BuildingScript>().cost;
+        // コストを表示
+        costText.text = "$"+buildingCost.ToString();
+    }
 
     // ドラッグを開始したときに呼び出されるメソッド
     public void OnBeginDrag(PointerEventData eventData)
     {
         // BuildingプレハブをGameObject型で取得
         building = Instantiate (buildingPrefab, Vector3.zero, Quaternion.identity) as GameObject;
-        // 親要素のGameObjectを取得
-        parentObject = transform.parent.gameObject;
+        // パネル要素を取得
+        panelObject = GameObject.FindWithTag("BuildingPanel");
         // パネルをスライドアウト
-        parentObject.GetComponent<PanelSlider>().SlideOut();
+        panelObject.GetComponent<PanelSlider>().SlideOut();
     }
 
     // ドラッグ中に呼び出されるメソッド
@@ -33,7 +48,7 @@ public class BuildingButtonScript : MonoBehaviour, IDragHandler, IBeginDragHandl
     public void OnEndDrag(PointerEventData eventData)
     {
         // パネルをスライドイン
-        parentObject.GetComponent<PanelSlider>().SlideIn();
+        panelObject.GetComponent<PanelSlider>().SlideIn();
         // 設置できるかを判定
         building.GetComponent<BuildingScript>().ConstructBuilding();
     }
@@ -43,5 +58,22 @@ public class BuildingButtonScript : MonoBehaviour, IDragHandler, IBeginDragHandl
         Vector3 newPosition = position;
         newPosition.y =  building.transform.localScale.y/2;
         return newPosition;
+    }
+
+    // 収益に応じてボタンを無効化する関数
+    public void UpdateBuildingButton(float revenue)
+    {
+        // 収益が0の場合
+        if(revenue < buildingCost)
+        {
+            // ボタンを無効化
+            overlapPanel.SetActive(true);
+        }
+        else
+        {
+            // ボタンを有効化
+            overlapPanel.SetActive(false);
+
+        }
     }
 }

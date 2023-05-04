@@ -12,6 +12,8 @@ TagManager:
   - OutFieldTile2
   - OutFieldTile3
   - OutFieldTile4
+  - BuildingPanel
+  - BuildingButton
   layers:
   - Default
   - TransparentFX
