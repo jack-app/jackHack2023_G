@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 565415654548995478}
   - component: {fileID: 8268853579533346569}
   m_Layer: 0
-  m_Name: MiddleBuilding4
+  m_Name: middleBuilding4
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,9 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ffc0e1eacc9c94690f06bbe1b87ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 100
-  revenue: 100
-  electricityBill: 100
+  cost: 200000
+  revenue: 5000
+  electricityBill: 30000
 --- !u!114 &4730369066388494478
 MonoBehaviour:
   m_ObjectHideFlags: 0
