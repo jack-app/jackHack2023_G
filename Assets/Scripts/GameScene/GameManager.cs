@@ -35,6 +35,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject sceneChangePanel;
     private Image fadeAlpha;
 
+    // 音源
+    private AudioSource audioSource;
+	//音声ファイル格納用変数
+	[SerializeField] AudioClip countDonwSound;
+	[SerializeField] AudioClip startSound;
+	[SerializeField] AudioClip clearSound;
+    [SerializeField] AudioClip buildSound;
     
 
 
@@ -77,33 +84,32 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         fadeAlpha = sceneChangePanel.GetComponent<Image>();
-        fadeAlpha.color = new Color(0, 0, 0, 0);
+        fadeAlpha.color = new Color(0, 0, 0, 1);
         // ボタンの一覧を取得
         buildingButtons = GameObject.FindGameObjectsWithTag("BuildingButton");
-
-        InitGame();
-    }
-
-    // 一番最初に呼ばれる関数
-    void InitGame()
-    {
-        // ゲームスタートのコルーチンを呼び出す
-        StartCoroutine(GameStart());
+        // 音源のコンポーネントを取得
+        audioSource = GetComponent<AudioSource>();
+        // 表示を更新
+        UpdateValue();
+        // 遷移してきたときのコルーチン
+        StartCoroutine(SceneChange(true));
     }
 
 
     // ゲームスタートのカウントダウンとかのコルーチン
     public IEnumerator GameStart()
     {
-        // 表示を更新
-        UpdateValue();
         centerText.enabled = true;
+        audioSource.PlayOneShot(countDonwSound);
         centerText.text = "3";
         yield return new WaitForSeconds(1);
+        audioSource.PlayOneShot(countDonwSound);       
         centerText.text = "2";
         yield return new WaitForSeconds(1);
+        audioSource.PlayOneShot(countDonwSound);
         centerText.text = "1";
         yield return new WaitForSeconds(1);
+        audioSource.PlayOneShot(startSound);
         centerText.text = "GO!!";
         yield return new WaitForSeconds(1);
         centerText.text = "";
@@ -141,32 +147,49 @@ public class GameManager : MonoBehaviour
     public IEnumerator GameClear()
     {
         panel.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
         centerText.enabled = true;
         centerText.text = "Game Clear!!";
-        yield return new WaitForSeconds(1);
+        audioSource.PlayOneShot(clearSound);
+        yield return new WaitForSeconds(1.0f);
         centerText.text = "";
         centerText.enabled = false;
         // シーン遷移のコルーチンを呼び出す
-        StartCoroutine(SceneChange());
+        StartCoroutine(SceneChange(false));
     }
 
     // リザルトに遷移するコルーチン
-    public IEnumerator SceneChange()
+    public IEnumerator SceneChange(bool isFadein)
     {
-
-        float alpha = 0.0f;
-        while(alpha < 1.0f)
+        if(isFadein)
         {
-            fadeAlpha.color = new Color(0, 0, 0, alpha);
-            alpha += 0.02f;
-            yield return new WaitForSeconds(1/60f);
+            float alpha = 1.0f;
+            while(alpha > 0.0f)
+            {
+                fadeAlpha.color = new Color(0, 0, 0, alpha);
+                alpha -= 0.02f;
+                yield return new WaitForSeconds(1/60f);
+            }
+            fadeAlpha.color = new Color(0, 0, 0, 0);
+            // ゲームスタートのコルーチン
+            StartCoroutine(GameStart());
         }
+        else
+        {
+            float alpha = 0.0f;
+            while(alpha < 1.0f)
+            {
+                fadeAlpha.color = new Color(0, 0, 0, alpha);
+                alpha += 0.02f;
+                yield return new WaitForSeconds(1/60f);
+            }
 
-        // リザルトシーンを読み込む
-        SceneManager.LoadScene("ResultScene", LoadSceneMode.Additive);
-        yield return new WaitForSeconds(0.01f);
-        // canvasを無効にする
-        GameObject.Find("Canvas").SetActive(false);
+            // リザルトシーンを読み込む
+            SceneManager.LoadScene("ResultScene", LoadSceneMode.Additive);
+            yield return new WaitForSeconds(0.01f);
+            // canvasを無効にする
+            GameObject.Find("Canvas").SetActive(false);
+        }
     }
 
     // 費用的に建設が可能かどうかの判定
@@ -178,6 +201,8 @@ public class GameManager : MonoBehaviour
     // 建設
     public void Build(float cost, float revenue, float electricityBill)
     {
+        // お金の音～
+        audioSource.PlayOneShot(buildSound); 
         // 収益と電気代を更新
         totalRevenue -= cost;
         revenuePerSecond += revenue;
@@ -196,6 +221,8 @@ public class GameManager : MonoBehaviour
     // 増設
     public void Extension()
     {
+        // お金の音～
+        audioSource.PlayOneShot(buildSound); 
         // 収益を更新
         totalRevenue -= extensionCostList[extensionCostIndex];
         // 増設に必要な建物数とお金を更新
@@ -210,12 +237,12 @@ public class GameManager : MonoBehaviour
     public void UpdateValue()
     {
         // 収益
-        revenueText.text =  totalRevenue.ToString() + " doll";
+        revenueText.text =  "$ "+totalRevenue.ToString();
         // 電気代
         electricityBillText.text = Mathf.Min(100, (Mathf.Floor(100*totalElectricityBill / clearElectricityBill))).ToString() + " %";
         electricityBillSlider.value = Mathf.Min(1.0f, totalElectricityBill / clearElectricityBill);
         // タイマー
-        timerText.text =   timer.ToString() + " sec.";
+        timerText.text =   timer.ToString() + " 秒";
         // 増設に必要な建物数
         ExtensionCountText.text = Mathf.Min(100, (Mathf.Floor(100*(float)buildingCount/ extensionCountList[extensionCountIndex]))).ToString() + " %";
         ExtensionCountSlider.value = Mathf.Min(1.0f, (float)buildingCount / extensionCountList[extensionCountIndex]);

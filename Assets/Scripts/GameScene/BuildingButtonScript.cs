@@ -2,20 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering.PostProcessing;
 using TMPro;
 
 public class BuildingButtonScript : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {   
     // BuildingプレハブをGameObject型で取得
     [SerializeField] GameObject buildingPrefab;
+
+    private PostProcessVolume postProcessVolume;
     // ドラッグ中のオブジェクトを格納する変数
     private GameObject building;
     // パネルのGameObjectを格納する変数
     private GameObject panelObject;
+
+    private PostProcessVolume _postProcessVolume;
+
+    private Bloom _bloom;
+
+    private PostProcessEffectSettings bloomProfile;
+
+    private MeshRenderer[] components;
+
     // ボタンを無効化するためのパネルを格納する変数
     [SerializeField] GameObject overlapPanel;
     // 対応する建物のコスト
     float buildingCost;
+
+    int n;
     // コストを表示するテキスト
     [SerializeField] TextMeshProUGUI costText;
 
@@ -33,6 +47,19 @@ public class BuildingButtonScript : MonoBehaviour, IDragHandler, IBeginDragHandl
     {
         // BuildingプレハブをGameObject型で取得
         building = Instantiate (buildingPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+
+        components = building.GetComponents<MeshRenderer>();
+        for (n=0; n<components.Length; n++) {
+            components[n].material.EnableKeyword("_EMISSION");
+            components[n].material.SetColor("_EmissionColor", Color.yellow);
+        }
+        // Bloom効果のインスタンスの作成
+        Bloom bloom = ScriptableObject.CreateInstance<Bloom>();
+        bloom.enabled.Override(true);
+        bloom.intensity.Override(8f);
+        //　ポストプロセスボリュームに反映
+        postProcessVolume = PostProcessManager.instance.QuickVolume(gameObject.layer, 0f, bloom);
+
         // パネル要素を取得
         panelObject = GameObject.FindWithTag("BuildingPanel");
         // パネルをスライドアウト

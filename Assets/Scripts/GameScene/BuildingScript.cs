@@ -67,6 +67,7 @@ public class BuildingScript : MonoBehaviour
 
     // オブジェクトが重なったとき
     void OnTriggerEnter(Collider other) {
+        if(!isGrabbing) return;
         if(other.CompareTag("Building"))
         {
             overlapCount++;
@@ -91,6 +92,7 @@ public class BuildingScript : MonoBehaviour
     // オブジェクトが離れた時
     void OnTriggerExit(Collider other) 
     {
+        if(!isGrabbing) return;
         if(other.CompareTag("Building")){
             overlapCount--;
             // print(overlapCount);
