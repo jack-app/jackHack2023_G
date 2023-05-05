@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
 	[SerializeField] AudioClip startSound;
 	[SerializeField] AudioClip clearSound;
     [SerializeField] AudioClip buildSound;
+
+    [SerializeField] AudioSource BGMSource;
+    [SerializeField] float defaultVolume = 0.2f;
     
 
 
@@ -91,6 +94,8 @@ public class GameManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         // 表示を更新
         UpdateValue();
+        // BGMの音量を設定
+        BGMSource.volume = defaultVolume;
         // 遷移してきたときのコルーチン
         StartCoroutine(SceneChange(true));
     }
@@ -115,6 +120,8 @@ public class GameManager : MonoBehaviour
         centerText.text = "";
         centerText.enabled = false;
         panel.SetActive(false);
+        // BGMを再生
+        BGMSource.Play();
         // タイマー用のコルーチンを呼び出す
         StartCoroutine(UpdateTimerAndRevenue());
     }
@@ -146,6 +153,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameClear()
     {
+        BGMSource.volume = defaultVolume/2.0f;
         panel.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         centerText.enabled = true;
@@ -181,6 +189,7 @@ public class GameManager : MonoBehaviour
             {
                 fadeAlpha.color = new Color(0, 0, 0, alpha);
                 alpha += 0.02f;
+                BGMSource.volume = (1-alpha)*defaultVolume/2.0f;
                 yield return new WaitForSeconds(1/60f);
             }
 
@@ -202,7 +211,7 @@ public class GameManager : MonoBehaviour
     public void Build(float cost, float revenue, float electricityBill)
     {
         // お金の音～
-        audioSource.PlayOneShot(buildSound); 
+        audioSource.PlayOneShot(buildSound, 0.5f); 
         // 収益と電気代を更新
         totalRevenue -= cost;
         revenuePerSecond += revenue;
@@ -222,7 +231,7 @@ public class GameManager : MonoBehaviour
     public void Extension()
     {
         // お金の音～
-        audioSource.PlayOneShot(buildSound); 
+        audioSource.PlayOneShot(buildSound, 0.5f); 
         // 収益を更新
         totalRevenue -= extensionCostList[extensionCostIndex];
         // 増設に必要な建物数とお金を更新
