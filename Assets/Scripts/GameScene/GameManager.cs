@@ -147,10 +147,11 @@ public class GameManager : MonoBehaviour
     public IEnumerator GameClear()
     {
         panel.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
         centerText.enabled = true;
         centerText.text = "Game Clear!!";
         audioSource.PlayOneShot(clearSound);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.0f);
         centerText.text = "";
         centerText.enabled = false;
         // シーン遷移のコルーチンを呼び出す
