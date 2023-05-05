@@ -9259,8 +9259,8 @@ MonoBehaviour:
   BGMSource: {fileID: 2042153567}
   defaultVolume: 0.1
   timer: 0
-  revenuePerSecond: 100
-  clearElectricityBill: 1000
+  revenuePerSecond: 2000
+  clearElectricityBill: 3000
 --- !u!82 &1481013321
 AudioSource:
   m_ObjectHideFlags: 0

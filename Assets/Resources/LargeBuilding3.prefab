@@ -101,9 +101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ffc0e1eacc9c94690f06bbe1b87ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cost: 100
-  revenue: 100
-  electricityBill: 100
+  cost: 800000
+  revenue: 9000
+  electricityBill: 60000
 --- !u!114 &5432592149432164442
 MonoBehaviour:
   m_ObjectHideFlags: 0

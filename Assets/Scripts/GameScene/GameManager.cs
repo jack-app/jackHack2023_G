@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     [Header("ゲーム設定")]
     // 電気代
-    float totalElectricityBill = 100;
+    float totalElectricityBill = 1000;
     // 収益
     float totalRevenue = 0;
     // 時間
@@ -59,9 +59,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] float revenuePerSecond = 100;
 
     // 増設に必要なコストの一覧
-    private float[] extensionCostList = {1000, 10000, 100000, 1000000, 10000000, 100000000};
+    private float[] extensionCostList = {50000, 100000, 500000, 1000000, 5000000, 10000000};
     // 増設に必要な建物数の一覧
-    private int[] extensionCountList = {10, 15, 21, 28, 36, 45};
+    private int[] extensionCountList = {10, 20, 30, 40, 50, 60};
 
     // 現在の増設に必要な建物数のインデックス
     int extensionCountIndex = 0;
@@ -198,6 +198,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             // canvasを無効にする
             GameObject.Find("Canvas").SetActive(false);
+            // Fieldを無効にする
+            GameObject.Find("Field").SetActive(false);
         }
     }
 
