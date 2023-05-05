@@ -50,10 +50,11 @@ public class BackBuildings : MonoBehaviour
 
     public float Move()
     {
-        float x = transform.position.x;
+        float x = transform.localPosition.x;
         if (_front) x = x - 1.5f;
         else x = x - 0.7f;
-        transform.position = new Vector3(x, -150f, 0f);
+        transform.localPosition = new Vector3(x, -150f, 0f);
+        transform.localEulerAngles = new Vector3(0, 0, 0);
         return x + width;
     }
 
