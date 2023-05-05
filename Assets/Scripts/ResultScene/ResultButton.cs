@@ -24,21 +24,29 @@ public class ResultButton : MonoBehaviour
     private bool fadeoutFlag = false;
     private string nextScene;
     private AudioSource clickSound;
-
+    public AudioSource BGMSource;
+    public float defaultVolume = 0.2f;
+    private bool isBGMPlaying = false;
 
 
     void Start()
     {
         fadeAlpha = sceneChangePanel.GetComponent<Image>();
         alpha = fadeAlpha.color.a;
-        score = 0;
+        score = 1000000 / (int)GameManager.Instance.timer;
         text.text = score.ToString();
         clickSound = GetComponent<AudioSource>();
+        BGMSource.volume = defaultVolume;
     }
 
     void Update()
     {
         Fade();
+        if(!fadeinFlag && !isBGMPlaying)
+        {
+            BGMSource.Play();
+            isBGMPlaying = true;
+        }
     }
 
     private void Fade()
@@ -63,6 +71,7 @@ public class ResultButton : MonoBehaviour
                 fadeoutFlag = false;
                 alpha = 1;
             }
+            BGMSource.volume = (1-alpha)*defaultVolume;
             fadeAlpha.color = new Color(0, 0, 0, alpha);
         }
     }

@@ -42,23 +42,26 @@ public class GameManager : MonoBehaviour
 	[SerializeField] AudioClip startSound;
 	[SerializeField] AudioClip clearSound;
     [SerializeField] AudioClip buildSound;
+
+    [SerializeField] AudioSource BGMSource;
+    [SerializeField] float defaultVolume = 0.2f;
     
 
 
     [Header("ゲーム設定")]
     // 電気代
-    float totalElectricityBill = 100;
+    float totalElectricityBill = 1000;
     // 収益
     float totalRevenue = 0;
     // 時間
-    float timer = 0;
+    public float timer = 0;
     // 一定時間ごとに増える収益（初期値は名古屋テレビ塔の収益）
     [SerializeField] float revenuePerSecond = 100;
 
     // 増設に必要なコストの一覧
-    private float[] extensionCostList = {1000, 10000, 100000, 1000000, 10000000, 100000000};
+    private float[] extensionCostList = {50000, 100000, 500000, 1000000, 5000000, 10000000};
     // 増設に必要な建物数の一覧
-    private int[] extensionCountList = {10, 15, 21, 28, 36, 45};
+    private int[] extensionCountList = {10, 20, 30, 40, 50, 60};
 
     // 現在の増設に必要な建物数のインデックス
     int extensionCountIndex = 0;
@@ -91,6 +94,8 @@ public class GameManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         // 表示を更新
         UpdateValue();
+        // BGMの音量を設定
+        BGMSource.volume = defaultVolume;
         // 遷移してきたときのコルーチン
         StartCoroutine(SceneChange(true));
     }
@@ -115,6 +120,8 @@ public class GameManager : MonoBehaviour
         centerText.text = "";
         centerText.enabled = false;
         panel.SetActive(false);
+        // BGMを再生
+        BGMSource.Play();
         // タイマー用のコルーチンを呼び出す
         StartCoroutine(UpdateTimerAndRevenue());
     }
@@ -146,6 +153,7 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameClear()
     {
+        BGMSource.volume = defaultVolume/2.0f;
         panel.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         centerText.enabled = true;
@@ -181,6 +189,7 @@ public class GameManager : MonoBehaviour
             {
                 fadeAlpha.color = new Color(0, 0, 0, alpha);
                 alpha += 0.02f;
+                BGMSource.volume = (1-alpha)*defaultVolume/2.0f;
                 yield return new WaitForSeconds(1/60f);
             }
 
@@ -189,6 +198,8 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             // canvasを無効にする
             GameObject.Find("Canvas").SetActive(false);
+            // Fieldを無効にする
+            GameObject.Find("Field").SetActive(false);
         }
     }
 
@@ -202,7 +213,7 @@ public class GameManager : MonoBehaviour
     public void Build(float cost, float revenue, float electricityBill)
     {
         // お金の音～
-        audioSource.PlayOneShot(buildSound); 
+        audioSource.PlayOneShot(buildSound, 0.5f); 
         // 収益と電気代を更新
         totalRevenue -= cost;
         revenuePerSecond += revenue;
@@ -222,7 +233,7 @@ public class GameManager : MonoBehaviour
     public void Extension()
     {
         // お金の音～
-        audioSource.PlayOneShot(buildSound); 
+        audioSource.PlayOneShot(buildSound, 0.5f); 
         // 収益を更新
         totalRevenue -= extensionCostList[extensionCostIndex];
         // 増設に必要な建物数とお金を更新
