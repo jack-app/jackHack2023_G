@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     // 収益
     float totalRevenue = 0;
     // 時間
-    float timer = 0;
+    public float timer = 0;
     // 一定時間ごとに増える収益（初期値は名古屋テレビ塔の収益）
     [SerializeField] float revenuePerSecond = 100;
 
