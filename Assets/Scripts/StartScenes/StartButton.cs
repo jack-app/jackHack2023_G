@@ -18,17 +18,26 @@ public class StartButton : MonoBehaviour
     private bool fadeoutFlag = false;
     public GameType gameType = GameType.easy;
     private AudioSource clickSound;
+    public AudioSource BGMSource;
+    public float defaultVolume = 0.2f;
+    private bool isBGMPlaying = false;
 
     void Start()
     {
         fadeAlpha = sceneChangePanel.GetComponent<Image>();
         alpha = fadeAlpha.color.a;
         clickSound = GetComponent<AudioSource>();
+        BGMSource.volume = defaultVolume;
     }
 
     void Update()
     {
         Fade();
+        if(!fadeinFlag && !isBGMPlaying)
+        {
+            BGMSource.Play();
+            isBGMPlaying = true;
+        }
     }
 
     private void Fade()
@@ -47,12 +56,14 @@ public class StartButton : MonoBehaviour
         {
 
             alpha += 0.02f;
+            print(BGMSource.volume);
             if (alpha >= 1)
             {
                 SceneManager.LoadScene("GameScene");
                 fadeoutFlag = false;
                 alpha = 1;
             }
+            BGMSource.volume = (1-alpha)*defaultVolume;
             fadeAlpha.color = new Color(0, 0, 0, alpha);
         }
     }
