@@ -11,8 +11,8 @@ public class BackGround : MonoBehaviour
     public bool moveable = true;
     private List<BackBuildings> backBuildings = new List<BackBuildings>();
     private List<BackBuildings> frontBuildings = new List<BackBuildings>();
-    private float frontMargin = 1100;
-    private float backMargin = 1100;
+    private float frontMargin = 1400;
+    private float backMargin = 1400;
     private System.Random r = new System.Random();
 
     void Awake()
@@ -32,8 +32,9 @@ public class BackGround : MonoBehaviour
             {
                 BackBuildings backBuilding = Instantiate(backBuildingPrefab);
                 float newBuilding = backBuilding.Create(true);
-                backBuilding.gameObject.transform.position = new Vector3(550f - frontMargin, -210, 0);
                 backBuilding.gameObject.transform.SetParent(parent.transform);
+                backBuilding.gameObject.transform.localPosition = new Vector3(700f - frontMargin, -210, 0);
+                backBuilding.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
                 frontMargin -= newBuilding;
                 backBuildings.Add(backBuilding);
             }
@@ -48,8 +49,9 @@ public class BackGround : MonoBehaviour
             {
                 BackBuildings backBuilding = Instantiate(backBuildingPrefab);
                 float newBuilding = backBuilding.Create(false);
-                backBuilding.gameObject.transform.position = new Vector3(550f - backMargin, -210, 0);
                 backBuilding.gameObject.transform.SetParent(parent.transform);
+                backBuilding.gameObject.transform.localPosition = new Vector3(700f - backMargin, -210, 0);
+                backBuilding.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
                 backMargin -= newBuilding;
                 frontBuildings.Add(backBuilding);
             }
@@ -60,13 +62,13 @@ public class BackGround : MonoBehaviour
     void Update()
     {
         if (!moveable) return;
-        float mostFrontRight = -550;
-        float mostBackRight = -550;
+        float mostFrontRight = -700;
+        float mostBackRight = -700;
         List<int> remove = new List<int>();
         foreach (BackBuildings b in backBuildings)
         {
             float rightEnd = b.Move();
-            if (rightEnd < -550)
+            if (rightEnd < -700)
             {
                 b.Remove();
                 remove.Insert(0, backBuildings.IndexOf(b));
@@ -82,7 +84,7 @@ public class BackGround : MonoBehaviour
         foreach (BackBuildings b in frontBuildings)
         {
             float rightEnd = b.Move();
-            if (rightEnd < -550)
+            if (rightEnd < -700)
             {
                 b.Remove();
                 remove.Insert(0, frontBuildings.IndexOf(b));
@@ -95,21 +97,23 @@ public class BackGround : MonoBehaviour
         }
 
         //create buildings
-        if(mostFrontRight < 550 && r.Next(1,100) < 1.55)
+        if(mostFrontRight < 700 && r.Next(1,100) < 1.55)
         {
             BackBuildings backBuilding = Instantiate(backBuildingPrefab);
             float newBuilding = backBuilding.Create(true);
-            backBuilding.gameObject.transform.position = new Vector3(550f, -210, 0);
             backBuilding.gameObject.transform.SetParent(parent.transform);
+            backBuilding.gameObject.transform.localPosition = new Vector3(700f, -210, 0);
+            backBuilding.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
             frontMargin = frontMargin - newBuilding + 10;
             frontBuildings.Add(backBuilding);
         }
-        if(mostBackRight < 550 && r.Next(1,100) < 1.03)
+        if(mostBackRight < 700 && r.Next(1,100) < 1.03)
         {
             BackBuildings backBuilding = Instantiate(backBuildingPrefab);
             float newBuilding = backBuilding.Create(false);
-            backBuilding.gameObject.transform.position = new Vector3(550f, -210, 0);
             backBuilding.gameObject.transform.SetParent(parent.transform);
+            backBuilding.gameObject.transform.localPosition = new Vector3(700f, -210, 0);
+            backBuilding.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
             backMargin -= newBuilding;
             backBuildings.Add(backBuilding);
         }
