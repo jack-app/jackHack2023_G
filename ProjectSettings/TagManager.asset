@@ -14,6 +14,7 @@ TagManager:
   - OutFieldTile4
   - BuildingPanel
   - BuildingButton
+  - GameSceneCanvas
   layers:
   - Default
   - TransparentFX

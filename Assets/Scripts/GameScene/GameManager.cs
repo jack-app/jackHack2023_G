@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("ResultScene", LoadSceneMode.Additive);
             yield return new WaitForSeconds(0.01f);
             // canvasを無効にする
-            GameObject.Find("Canvas").SetActive(false);
+            GameObject.FindWithTag("GameSceneCanvas").SetActive(false);
             // Fieldを無効にする
             GameObject.Find("Field").SetActive(false);
         }
