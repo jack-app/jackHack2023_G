@@ -31,7 +31,7 @@ public class ResultButton : MonoBehaviour
     {
         fadeAlpha = sceneChangePanel.GetComponent<Image>();
         alpha = fadeAlpha.color.a;
-        score = 0;
+        score = 1000000 / (int)GameManager.Instance.timer;
         text.text = score.ToString();
         clickSound = GetComponent<AudioSource>();
     }
